@@ -10,7 +10,7 @@
         <div class="form">
             <div class="form-email">
                 <label for="email">Your email</label>
-                <input id="email" type="email">
+                <input id="email" type="email" oninput="saveInputValue('email')">
             </div>
             <div class="form-password">
                 <label for="password">Your password</label>
@@ -19,7 +19,6 @@
             <div class="form-country">
                 <label>Your country</label>
                 <select>
-                    <option disabled>Выберите страну</option>
                     <option value="Ukraine">Ukraine</option>
                     <option value="Belarus">Belarus</option>
                     <option value="Poland">Poland</option>
@@ -35,5 +34,6 @@
             </div>
         </div>
     </div>
+<script src="index.js"></script>
 </body>
 </html>
