@@ -18,7 +18,7 @@
             </div>
             <div class="form-country">
                 <label>Your country</label>
-                <select>
+                <select id="select-country" onchange="saveInputValue('select-country')" >
                     <option value="Ukraine">Ukraine</option>
                     <option value="Belarus">Belarus</option>
                     <option value="Poland">Poland</option>
@@ -26,7 +26,7 @@
                 </select>
             </div>
             <div class="form-checkbox">
-                <input id="notifications" type="checkbox">
+                <input id="notifications" type="checkbox" onchange="saveInputValue('notifications','checkbox')">
                 <label for="notifications">Receive notifications about promotions</label>
             </div>
             <div class="form-submit">

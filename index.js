@@ -1,12 +1,20 @@
-// - навесить слушателей на каждый инпут
-// - создать одну функцию, которая будет креэйтить 
-// ключ (имя ключа - id) и записывать в него значение
-// - візіваем єту функцию для аждого инпута
+
 let inputEmaleElem = document.getElementById('email');
 inputEmaleElem.value = localStorage.getItem('email');
+let selectCountryElem = document.getElementById('select-country');
+selectCountryElem.value = localStorage.getItem('select-country');
+let formCheckboxElem = document.getElementById('notifications');
+const fromLS = localStorage.getItem('notifications');
+formCheckboxElem.checked = JSON.parse(fromLS);
 
-function saveInputValue(id) {
+function saveInputValue(id,type) {
+    if(type === 'checkbox'){
+        let elem = document.getElementById(id);
+        localStorage.setItem(id, elem.checked);
+        return;
+    }
+    console.log('vhod');
     let elem = document.getElementById(id);
     localStorage.setItem(id, elem.value);
-    console.log('elem.value',elem.value);
 }
+
