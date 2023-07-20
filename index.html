@@ -7,30 +7,37 @@
 </head>
 <body>
     <div class="main-wrapper">
+        <div class="lang">
+            <label translate="label-language" >Language</label>
+            <select id="select-language" onchange="changeLanguage()">
+                <option value="ua" translate="label-ua">Ua</option>
+                <option value="en" translate="label-en">En</option>
+            </select>
+        </div>
         <div class="form">
             <div class="form-email">
-                <label for="email">Your email</label>
+                <label translate="label-email" for="email">Your email</label>
                 <input id="email" type="email" oninput="saveInputValue('email')">
             </div>
             <div class="form-password">
-                <label for="password">Your password</label>
+                <label translate="label-password" for="password">Your password</label>
                 <input id="password" type="password">
             </div>
             <div class="form-country">
-                <label>Your country</label>
+                <label translate="label-country">Your country</label>
                 <select id="select-country" onchange="saveInputValue('select-country')" >
-                    <option value="Ukraine">Ukraine</option>
-                    <option value="Belarus">Belarus</option>
-                    <option value="Poland">Poland</option>
-                    <option value="Spain">Spain</option>
+                    <option translate="label-Ukraine" value="Ukraine">Ukraine</option>
+                    <option translate="label-Belarus" value="Belarus">Belarus</option>
+                    <option translate="label-Poland" value="Poland">Poland</option>
+                    <option translate="label-Spain" value="Spain">Spain</option>
                 </select>
             </div>
             <div class="form-checkbox">
                 <input id="notifications" type="checkbox" onchange="saveInputValue('notifications','checkbox')">
-                <label for="notifications">Receive notifications about promotions</label>
+                <label translate="label-notifications" for="notifications">Receive notifications about promotions</label>
             </div>
             <div class="form-submit">
-                <button id="submit">Submit</button>
+                <button translate="label-submit" id="submit">Submit</button>
             </div>
         </div>
     </div>
