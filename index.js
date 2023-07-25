@@ -88,23 +88,43 @@ return {
     onChangeLanguage: onChangeLanguage
 }
 })();
-console.log(store)
 
-const timerVar = setInterval(countTimer, 1000);
+
 let totalSeconds = 0;
-function countTimer() {
-    ++totalSeconds;
-    let hour = Math.floor(totalSeconds / 3600);
-    let minute = Math.floor((totalSeconds - hour * 3600) / 60);
-    let seconds = totalSeconds - (hour * 3600 + minute * 60);
-    if(hour < 10) {
+let restoredTime = localStorage.getItem('totalSeconds');
+
+const timer = setInterval(a, 1000);
+function a() {
+    let arg;
+    if (restoredTime) {
+        arg = localStorage.getItem('totalSeconds');
+    } else {
+        arg = totalSeconds;
+    }
+    countTimer(arg);
+}
+
+function countTimer(time) {
+    console.log('enter',time)
+    ++time;
+    let hour = Math.floor(time / 3600);
+    let minute = Math.floor((time - hour * 3600) / 60);
+    let seconds = time - (hour * 3600 + minute * 60);
+    if (hour < 10) {
         hour = '0' + hour;
     }
-    if(minute < 10) {
+    if (minute < 10) {
         minute = '0' + minute;
     }
-    if(seconds < 10) {
+    if (seconds < 10) {
         seconds = '0' + seconds;
     }
     document.getElementById('timer').innerHTML = `${hour} : ${minute} : ${seconds}`;
+    saveTotalSecondsValue(time);
+}
+
+function saveTotalSecondsValue(time) {
+    localStorage.setItem('totalSeconds',time);
+    // console.log('restoredTime',restoredTime)
+
 }
