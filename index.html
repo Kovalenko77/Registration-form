@@ -8,8 +8,8 @@
 <body>
     <div class="main-wrapper">
         <div class="lang">
-            <label translate="label-language" >Language</label>
-            <select id="select-language" onchange="changeLanguage()">
+            <label translate="label-language">Language</label>
+            <select class="lang-select" onchange="store.onChangeLanguage(event)">
                 <option value="ua" translate="label-ua">Ua</option>
                 <option value="en" translate="label-en">En</option>
             </select>
@@ -17,7 +17,7 @@
         <div class="form">
             <div class="form-email">
                 <label translate="label-email" for="email">Your email</label>
-                <input id="email" type="email" oninput="saveInputValue('email')">
+                <input id="email" type="email" oninput="store.saveInputValue(event)">
             </div>
             <div class="form-password">
                 <label translate="label-password" for="password">Your password</label>
@@ -25,7 +25,7 @@
             </div>
             <div class="form-country">
                 <label translate="label-country">Your country</label>
-                <select id="select-country" onchange="saveInputValue('select-country')" >
+                <select id="select-country" onchange="store.saveInputValue(event)" >
                     <option translate="label-Ukraine" value="Ukraine">Ukraine</option>
                     <option translate="label-Belarus" value="Belarus">Belarus</option>
                     <option translate="label-Poland" value="Poland">Poland</option>
@@ -33,14 +33,32 @@
                 </select>
             </div>
             <div class="form-checkbox">
-                <input id="notifications" type="checkbox" onchange="saveInputValue('notifications','checkbox')">
+                <input id="notifications" type="checkbox" onchange="store.saveInputValue(event)">
                 <label translate="label-notifications" for="notifications">Receive notifications about promotions</label>
             </div>
             <div class="form-submit">
                 <button translate="label-submit" id="submit">Submit</button>
+            </div>
+            <hr/>
+            <div class="lang">
+                <label translate="label-language">Language</label>
+                <select class="lang-select" onchange="store.onChangeLanguage(event)">
+                    <option value="ua" translate="label-ua">Ua</option>
+                    <option value="en" translate="label-en">En</option>
+                </select>
+            </div>
+            <hr/>
+            <div class="lang">
+                <label translate="label-language">Language</label>
+                <select class="lang-select" onchange="store.onChangeLanguage(event)">
+                    <option value="ua" translate="label-ua">Ua</option>
+                    <option value="en" translate="label-en">En</option>
+                </select>
             </div>
         </div>
     </div>
 <script src="index.js"></script>
 </body>
 </html>
+
+<!-- fields.email.errors.length => Length -->
