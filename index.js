@@ -44,14 +44,10 @@ function init() {
     const restoredLang = localStorage.getItem('select-language');
     let arg;
     if (restoredLang) {
-        console.log('vhod');
         arg = restoredLang;
     } else {
         arg = 'en';
-        console.log('vhod');
-
     }
-    console.log('arg',arg)
     changeLanguage(arg);
 }
 
@@ -103,15 +99,13 @@ return {
 
 })();
 
-
-let totalSeconds = 0;
-let restoredTime = localStorage.getItem('totalSeconds');
-
-const timer = setInterval(a, 1000);
-function a() {
+const timer = setInterval(startTimer, 1000);
+function startTimer() {
     let arg;
+    let totalSeconds = 0;
+    let restoredTime = localStorage.getItem('totalSeconds');
     if (restoredTime) {
-        arg = localStorage.getItem('totalSeconds');
+        arg = restoredTime;
     } else {
         arg = totalSeconds;
     }
@@ -119,7 +113,6 @@ function a() {
 }
 
 function countTimer(time) {
-    console.log('enter',time)
     ++time;
     let hour = Math.floor(time / 3600);
     let minute = Math.floor((time - hour * 3600) / 60);
@@ -139,6 +132,4 @@ function countTimer(time) {
 
 function saveTotalSecondsValue(time) {
     localStorage.setItem('totalSeconds',time);
-    // console.log('restoredTime',restoredTime)
-
 }
