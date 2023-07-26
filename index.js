@@ -42,7 +42,17 @@ function init() {
     const restoredNotificationsCheckboxValue = localStorage.getItem('notifications');
     formCheckboxElem.checked = JSON.parse(restoredNotificationsCheckboxValue);
     const restoredLang = localStorage.getItem('select-language');
-    changeLanguage(restoredLang);
+    let arg;
+    if (restoredLang) {
+        console.log('vhod');
+        arg = restoredLang;
+    } else {
+        arg = 'en';
+        console.log('vhod');
+
+    }
+    console.log('arg',arg)
+    changeLanguage(arg);
 }
 
 function changeLanguage(lang) {
@@ -55,6 +65,9 @@ function translateContent(lang) {
     const labelEls = document.querySelectorAll('[translate]');
     for (let i = 0; i < labelEls.length; i++ )  { 
         const translationKey = labelEls[i].getAttribute('translate');
+        console.log('LANGUAGE_LABEL_CONTENT[lang]',LANGUAGE_LABEL_CONTENT[lang]);
+        console.log('LANGUAGE_LABEL_CONTENT',LANGUAGE_LABEL_CONTENT);
+        console.log('lang',lang);
         const translationValue = LANGUAGE_LABEL_CONTENT[lang][translationKey];
         labelEls[i].textContent = translationValue;
     }
@@ -87,6 +100,7 @@ return {
     saveInputValue: saveInputValue,
     onChangeLanguage: onChangeLanguage
 }
+
 })();
 
 
