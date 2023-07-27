@@ -29,6 +29,9 @@ const LANGUAGE_LABEL_CONTENT = {
     }
 }
 
+const DEFAULT_LANGUAGE = 'en';
+
+
 const store = (() => {
 
 init();
@@ -42,10 +45,8 @@ function init() {
     const restoredNotificationsCheckboxValue = localStorage.getItem('notifications');
     formCheckboxElem.checked = JSON.parse(restoredNotificationsCheckboxValue);
     const restoredLang = localStorage.getItem('select-language');
-    const defaultLanguage = 'en';
-    changeLanguage(restoredLang || defaultLanguage);
+    changeLanguage(restoredLang || DEFAULT_LANGUAGE);
     const timer = setInterval(startTimer, 1000);
-
 }
 
 function changeLanguage(lang) {
@@ -76,7 +77,7 @@ function setValueForLangSelects(languageValue) {
 
 function saveInputValue(event) {
     const currentFormElement = event.target;
-    let value = currentFormElement.type === 'checkbox' ? currentFormElement.checked : currentFormElement.value;
+    const value = currentFormElement.type === 'checkbox' ? currentFormElement.checked : currentFormElement.value;
     localStorage.setItem(currentFormElement.id, value);
 }
 
@@ -87,8 +88,8 @@ function onChangeLanguage(event) {
 }
 
 function startTimer() {
-    let totalSeconds = 0;
-    let restoredTime = localStorage.getItem('totalSeconds');
+    const totalSeconds = 0;
+    const restoredTime = localStorage.getItem('totalSeconds');
     countTimer(restoredTime || totalSeconds);
 }
 
@@ -97,7 +98,6 @@ function countTimer(time) {
     let hours = Math.floor(time / 3600);
     let minutes = Math.floor((time - hours * 3600) / 60);
     let seconds = time - (hours * 3600 + minutes * 60);
-    console.log('hour', hours)
     hours = String(hours).padStart(2, '0');
     minutes = String(minutes).padStart(2, '0');
     seconds = String(seconds).padStart(2, '0');
@@ -113,6 +113,5 @@ return {
     saveInputValue: saveInputValue,
     onChangeLanguage: onChangeLanguage
 }
-
 })();
 
