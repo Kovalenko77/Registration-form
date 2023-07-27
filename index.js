@@ -29,6 +29,9 @@ const LANGUAGE_LABEL_CONTENT = {
     }
 }
 
+const DEFAULT_LANGUAGE = 'en';
+
+
 const store = (() => {
 
 init();
@@ -42,7 +45,8 @@ function init() {
     const restoredNotificationsCheckboxValue = localStorage.getItem('notifications');
     formCheckboxElem.checked = JSON.parse(restoredNotificationsCheckboxValue);
     const restoredLang = localStorage.getItem('select-language');
-    changeLanguage(restoredLang);
+    changeLanguage(restoredLang || DEFAULT_LANGUAGE);
+    const timer = setInterval(startTimer, 1000);
 }
 
 function changeLanguage(lang) {
@@ -73,7 +77,7 @@ function setValueForLangSelects(languageValue) {
 
 function saveInputValue(event) {
     const currentFormElement = event.target;
-    let value = currentFormElement.type === 'checkbox' ? currentFormElement.checked : currentFormElement.value;
+    const value = currentFormElement.type === 'checkbox' ? currentFormElement.checked : currentFormElement.value;
     localStorage.setItem(currentFormElement.id, value);
 }
 
@@ -83,28 +87,31 @@ function onChangeLanguage(event) {
     changeLanguage(languageValue);
 }
 
+function startTimer() {
+    const totalSeconds = 0;
+    const restoredTime = localStorage.getItem('totalSeconds');
+    countTimer(restoredTime || totalSeconds);
+}
+
+function countTimer(time) {
+    ++time;
+    let hours = Math.floor(time / 3600);
+    let minutes = Math.floor((time - hours * 3600) / 60);
+    let seconds = time - (hours * 3600 + minutes * 60);
+    hours = String(hours).padStart(2, '0');
+    minutes = String(minutes).padStart(2, '0');
+    seconds = String(seconds).padStart(2, '0');
+    document.getElementById('timer').innerHTML = `${hours} : ${minutes} : ${seconds}`;
+    saveTotalSecondsValue(time);
+}
+
+function saveTotalSecondsValue(time) {
+    localStorage.setItem('totalSeconds', time);
+}
+
 return {
     saveInputValue: saveInputValue,
     onChangeLanguage: onChangeLanguage
 }
 })();
-console.log(store)
 
-const timerVar = setInterval(countTimer, 1000);
-let totalSeconds = 0;
-function countTimer() {
-    ++totalSeconds;
-    let hour = Math.floor(totalSeconds / 3600);
-    let minute = Math.floor((totalSeconds - hour * 3600) / 60);
-    let seconds = totalSeconds - (hour * 3600 + minute * 60);
-    if(hour < 10) {
-        hour = '0' + hour;
-    }
-    if(minute < 10) {
-        minute = '0' + minute;
-    }
-    if(seconds < 10) {
-        seconds = '0' + seconds;
-    }
-    document.getElementById('timer').innerHTML = `${hour} : ${minute} : ${seconds}`;
-}
