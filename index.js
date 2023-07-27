@@ -42,13 +42,10 @@ function init() {
     const restoredNotificationsCheckboxValue = localStorage.getItem('notifications');
     formCheckboxElem.checked = JSON.parse(restoredNotificationsCheckboxValue);
     const restoredLang = localStorage.getItem('select-language');
-    let arg;
-    if (restoredLang) {
-        arg = restoredLang;
-    } else {
-        arg = 'en';
-    }
-    changeLanguage(arg);
+    const defaultLanguage = 'en';
+    changeLanguage(restoredLang || defaultLanguage);
+    const timer = setInterval(startTimer, 1000);
+
 }
 
 function changeLanguage(lang) {
@@ -61,9 +58,6 @@ function translateContent(lang) {
     const labelEls = document.querySelectorAll('[translate]');
     for (let i = 0; i < labelEls.length; i++ )  { 
         const translationKey = labelEls[i].getAttribute('translate');
-        console.log('LANGUAGE_LABEL_CONTENT[lang]',LANGUAGE_LABEL_CONTENT[lang]);
-        console.log('LANGUAGE_LABEL_CONTENT',LANGUAGE_LABEL_CONTENT);
-        console.log('lang',lang);
         const translationValue = LANGUAGE_LABEL_CONTENT[lang][translationKey];
         labelEls[i].textContent = translationValue;
     }
@@ -92,6 +86,29 @@ function onChangeLanguage(event) {
     changeLanguage(languageValue);
 }
 
+function startTimer() {
+    let totalSeconds = 0;
+    let restoredTime = localStorage.getItem('totalSeconds');
+    countTimer(restoredTime || totalSeconds);
+}
+
+function countTimer(time) {
+    ++time;
+    let hours = Math.floor(time / 3600);
+    let minutes = Math.floor((time - hours * 3600) / 60);
+    let seconds = time - (hours * 3600 + minutes * 60);
+    console.log('hour', hours)
+    hours = String(hours).padStart(2, '0');
+    minutes = String(minutes).padStart(2, '0');
+    seconds = String(seconds).padStart(2, '0');
+    document.getElementById('timer').innerHTML = `${hours} : ${minutes} : ${seconds}`;
+    saveTotalSecondsValue(time);
+}
+
+function saveTotalSecondsValue(time) {
+    localStorage.setItem('totalSeconds', time);
+}
+
 return {
     saveInputValue: saveInputValue,
     onChangeLanguage: onChangeLanguage
@@ -99,37 +116,3 @@ return {
 
 })();
 
-const timer = setInterval(startTimer, 1000);
-function startTimer() {
-    let arg;
-    let totalSeconds = 0;
-    let restoredTime = localStorage.getItem('totalSeconds');
-    if (restoredTime) {
-        arg = restoredTime;
-    } else {
-        arg = totalSeconds;
-    }
-    countTimer(arg);
-}
-
-function countTimer(time) {
-    ++time;
-    let hour = Math.floor(time / 3600);
-    let minute = Math.floor((time - hour * 3600) / 60);
-    let seconds = time - (hour * 3600 + minute * 60);
-    if (hour < 10) {
-        hour = '0' + hour;
-    }
-    if (minute < 10) {
-        minute = '0' + minute;
-    }
-    if (seconds < 10) {
-        seconds = '0' + seconds;
-    }
-    document.getElementById('timer').innerHTML = `${hour} : ${minute} : ${seconds}`;
-    saveTotalSecondsValue(time);
-}
-
-function saveTotalSecondsValue(time) {
-    localStorage.setItem('totalSeconds',time);
-}
